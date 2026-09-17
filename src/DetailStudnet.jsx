@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 function DetailStudnet() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [data, setData] = useState({});
+  const [isDeleting, setIsDeleting] = useState(false);
   const apiUrl = "https://62d6c51451e6e8f06f12bd5d.mockapi.io/students/" + id;
 
   useEffect(() => {
@@ -29,6 +31,24 @@ function DetailStudnet() {
             <p>Building: {data.StudentBuildingNumber}</p>
             <p>City: {data.StudentCity}</p>
             <p>State: {data.StudentState}</p>
+            <button
+              onClick={() => {
+                setIsDeleting(true);
+                fetch(apiUrl, { method: "DELETE" })
+                  .then((res) => res.json())
+                  .then((res) => navigate("/students"));
+              }}
+              className="btn btn-danger"
+              disabled={isDeleting}
+            >
+              {!isDeleting && "Delete"}
+              {isDeleting && (
+                <div class="spinner-border text-info" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              )}
+            </button>
+            &nbsp;
             <Link to="/students" className="btn btn-info">
               Back
             </Link>
