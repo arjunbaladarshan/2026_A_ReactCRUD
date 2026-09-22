@@ -15,6 +15,9 @@ function ListStudents() {
   return (
     <>
       <h1>List of Students</h1>
+      <Link to="/students/add" className="btn btn-primary">
+        Add New
+      </Link>
       <div className="container">
         <div className="row">
           {data.map((stu) => {

@@ -4,6 +4,8 @@ import Layout from "./Layout";
 import ListStudents from "./ListStudents";
 import ListFaculties from "./ListFaculties";
 import DetailStudnet from "./DetailStudnet";
+import AddFaculty from "./AddFaculty";
+import AddStudent from "./AddStudent";
 
 function App() {
   return (
@@ -12,8 +14,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/students" element={<ListStudents />} />
+            <Route path="/students/add" element={<AddStudent />} />
             <Route path="/students/:id" element={<DetailStudnet />} />
             <Route path="/faculties" element={<ListFaculties />} />
+            <Route path="/faculties/add" element={<AddFaculty />} />
           </Route>
         </Routes>
       </BrowserRouter>
