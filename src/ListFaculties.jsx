@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function ListFaculties() {
-  const apiUrl = "https://62d6c51451e6e8f06f12bd5d.mockapi.io/faculties";
+  const apiUrl = import.meta.env.VITE_APIURL + "faculties";
 
   const [refresh, setRefresh] = useState(false);
   const [data, setData] = useState([]);
@@ -32,8 +32,7 @@ function ListFaculties() {
                     <button
                       onClick={() => {
                         fetch(
-                          "https://62d6c51451e6e8f06f12bd5d.mockapi.io/faculties/" +
-                            fac.id,
+                          import.meta.env.VITE_APIURL + "faculties/" + fac.id,
                           {
                             method: "DELETE",
                           },
@@ -45,6 +44,12 @@ function ListFaculties() {
                     >
                       Delete
                     </button>
+                    <Link
+                      to={"/faculties/edit/" + fac.id}
+                      className="btn btn-warning"
+                    >
+                      Edit
+                    </Link>
                   </div>
                 </div>
               </div>

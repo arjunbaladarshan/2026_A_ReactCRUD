@@ -6,7 +6,7 @@ function DetailStudnet() {
   const navigate = useNavigate();
   const [data, setData] = useState({});
   const [isDeleting, setIsDeleting] = useState(false);
-  const apiUrl = "https://62d6c51451e6e8f06f12bd5d.mockapi.io/students/" + id;
+  const apiUrl = import.meta.env.VITE_APIURL + "students/" + id;
 
   useEffect(() => {
     fetch(apiUrl, { method: "GET" })
@@ -48,6 +48,10 @@ function DetailStudnet() {
                 </div>
               )}
             </button>
+            &nbsp;
+            <Link to={"/students/edit/" + id} className="btn btn-warning">
+              Edit
+            </Link>
             &nbsp;
             <Link to="/students" className="btn btn-info">
               Back

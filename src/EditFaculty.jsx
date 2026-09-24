@@ -1,10 +1,20 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
-function AddFaculty() {
+function EditFaculty() {
+  const { id } = useParams();
   const [data, setData] = useState({});
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch(import.meta.env.VITE_APIURL + "faculties/" + id, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((res) => setData(res));
+  }, []);
+
   return (
     <div>
       {msg.length > 0 && (
@@ -18,6 +28,7 @@ function AddFaculty() {
           <td>
             <input
               type="text"
+              value={data.facultyName}
               onChange={(e) => {
                 setData({ ...data, facultyName: e.target.value });
               }}
@@ -29,6 +40,7 @@ function AddFaculty() {
           <td>
             <input
               type="text"
+              value={data.facultyCode}
               onChange={(e) => {
                 setData({ ...data, facultyCode: e.target.value });
               }}
@@ -40,6 +52,7 @@ function AddFaculty() {
           <td>
             <input
               type="text"
+              value={data.facultyImage}
               onChange={(e) => {
                 setData({ ...data, facultyImage: e.target.value });
               }}
@@ -51,13 +64,17 @@ function AddFaculty() {
             <button
               onClick={() => {
                 if (data?.facultyName?.length > 0) {
-                  fetch(import.meta.env.VITE_APIURL + "faculties", {
-                    method: "POST",
-                    body: JSON.stringify(data),
-                    headers: {
-                      "Content-Type": "application/json",
+                  fetch(
+                    "https://62d6c51451e6e8f06f12bd5d.mockapi.io/faculties/" +
+                      id,
+                    {
+                      method: "PUT",
+                      body: JSON.stringify(data),
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
                     },
-                  })
+                  )
                     .then((res) => res.json())
                     .then((res) => {
                       navigate("/faculties");
@@ -81,4 +98,4 @@ function AddFaculty() {
   );
 }
 
-export default AddFaculty;
+export default EditFaculty;
